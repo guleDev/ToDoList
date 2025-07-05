@@ -3,7 +3,7 @@ import { ColorScheme } from "@data/types";
 import { StyleSheet, useColorScheme } from "react-native";
 
 type Variant = 'close' | 'open'
-type Status = "pending" | "in-progress" | "completed" | "canceled" | "on_hold" | "overdue"
+type Status = "pending" | "in-progress" | "completed" | "canceled" | "on-hold" | "overdue"
 type Priority = "low" | "medium" | "high"
 
 export const cardStyle = () => {
@@ -11,51 +11,52 @@ export const cardStyle = () => {
 
     const statusColor = StyleSheet.create({
         pending: {
-            tintColor: COLOR.orange200,
-            color: COLOR.orange200
+            tintColor: COLOR["ambar-600"],
+            color: COLOR["ambar-600"]
         },
         "in-progress": {
-            tintColor: COLOR.green300,
-            color: COLOR.green300
+            tintColor: COLOR["green-500"],
+            color: COLOR["green-500"]
         },
         completed: {
-            tintColor: COLOR.green400,
-            color: COLOR.green400
+            tintColor: COLOR["ambar-600"],
+            color: COLOR["ambar-600"]
         },
         canceled: {
-            tintColor: COLOR.red300,
-            color: COLOR.red300
+            tintColor: COLOR["red-600"],
+            color: COLOR["red-600"]
         },
-        on_hold: {
-            tintColor: COLOR.yellow200,
-            color: COLOR.yellow200
+        "on-hold": {
+            tintColor: COLOR["yellow-400"],
+            color: COLOR["yellow-400"]
         },
         overdue: {
-            tintColor: COLOR.red300,
-            color: COLOR.red300
+            tintColor: COLOR["red-600"],
+            color: COLOR["red-600"]
         },
     })
 
     const priorityColor = StyleSheet.create({
         low: {
-            tintColor: COLOR.green400,
-            color: COLOR.green400
+            tintColor: COLOR["green-500"],
+            color: COLOR["green-500"]
         },
         medium: {
-            tintColor: COLOR.yellow200,
-            color: COLOR.yellow200
+            tintColor: COLOR["yellow-400"],
+            color: COLOR["yellow-400"]
         },
         high: {
-            tintColor: COLOR.red300,
-            color: COLOR.red300
+            tintColor: COLOR["red-600"],
+            color: COLOR["red-600"]
         },
     })
 
     const base = StyleSheet.create({
         card: {
-            backgroundColor: colorScheme === 'dark' ? '#2b2b2b' : '#8b92a3',
-            borderRadius: 12,
+            backgroundColor: colorScheme === 'dark' ? COLOR["neutral-800"] : COLOR["neutral-500"],
+            width: "75%",
             padding: 12,
+            borderRadius: 12,
         },
 
     });
@@ -65,11 +66,10 @@ export const cardStyle = () => {
             flex: 0.1,
             flexDirection: "row",
             justifyContent: "space-between",
-            alignItems: "center",
-            width: "75%"
         },
         closeContainer: {
             flex: 1,
+            alignItems: "center",
             flexDirection: "row",
             paddingLeft: "2%",
         },
@@ -77,10 +77,25 @@ export const cardStyle = () => {
             flex: 1,
             flexDirection: "row",
             justifyContent: "space-evenly",
-            paddingLeft: "2%",
         },
         open: {
-        }
+            flex: 0.1,
+            flexDirection: "column",
+            justifyContent: "space-between",
+        },
+        openHeader: {
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center"
+        },
+        openContainer: {
+            flex: 1,
+            alignItems: "center",
+        },
+        openInfos: {
+            flexDirection: "row",
+            justifyContent: "space-around"
+        },
     })
 
     const compose = (variantType: Variant = 'close') => {
@@ -88,14 +103,18 @@ export const cardStyle = () => {
             card: StyleSheet.flatten([
                 base.card,
                 card[variantType]
-            ])
+            ]),
         }
     }
 
     const composePriority = (priorityType: Priority = 'low') => {
         return {
-            priorityText: StyleSheet.flatten([
+            close: StyleSheet.flatten([
                 card.closeInfos,
+                priorityColor[priorityType]
+            ]),
+            open: StyleSheet.flatten([
+                card.openInfos,
                 priorityColor[priorityType]
             ])
         }
@@ -103,8 +122,12 @@ export const cardStyle = () => {
 
     const composeStatus = (statusType: Status = 'pending') => {
         return {
-            statusText: StyleSheet.flatten([
+            close: StyleSheet.flatten([
                 card.closeInfos,
+                statusColor[statusType]
+            ]),
+            open: StyleSheet.flatten([
+                card.openInfos,
                 statusColor[statusType]
             ])
         }

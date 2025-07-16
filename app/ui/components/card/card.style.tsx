@@ -14,7 +14,8 @@ export const cardStyle = () => {
             width: "75%",
             padding: 12,
             borderRadius: 12,
-            marginTop: 20
+            marginTop: 20,
+            minHeight: 115,
         },
 
     });
@@ -24,7 +25,7 @@ export const cardStyle = () => {
             flex: 1,
             flexDirection: "row",
             justifyContent: "space-between",
-            alignItems: "center"
+            alignItems: "center",
         },
         headerTitle: {
             flex: 1,
